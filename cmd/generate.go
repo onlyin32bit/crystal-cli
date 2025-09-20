@@ -35,7 +35,7 @@ func runGenerate(cmd *cobra.Command, args []string) {
 		console.PrintErrorAndExit(err.Error())
 	}
 
-	fmt.Print(s)
+	fmt.Print(s.Models["User"].Fields["id"].Type)
 }
 
 func init() {

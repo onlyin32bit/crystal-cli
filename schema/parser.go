@@ -8,20 +8,29 @@ import (
 )
 
 type Schema struct {
-	Provider   string                      `yaml:"provider"`
-	Source     string                      `yaml:"source"`
-	Enums      map[string][]string         `yaml:"enums"`
-	Composites map[string]string           `yaml:"composites"`
-	Models     map[string]map[string]Model `yaml:"models"`
+	Provider   string              `yaml:"provider"`
+	Source     string              `yaml:"source"`
+	Enums      map[string][]string `yaml:"enums,omitempty"`
+	Composites map[string]Model    `yaml:"composites,omitempty"`
+	Models     map[string]Model    `yaml:"models"`
 }
 
 type Model struct {
-	Fields struct {
-		Type    string `yaml:"$type"`
-		ID      bool   `yaml:"$id,omitempty"`
-		Unique  bool   `yaml:"$unique,omitempty"`
-		Default string `yaml:"$default,omitempty"`
-	} `yaml:",inline"`
+	Fields map[string]Field `yaml:",inline"`
+}
+
+type Field struct {
+	Type      string    `yaml:"$type"`
+	ID        bool      `yaml:"$id,omitempty"`
+	Unique    bool      `yaml:"$unique,omitempty"`
+	Default   string    `yaml:"$default,omitempty"`
+	UpdatedAt bool      `yaml:"$updatedAt,omitempty"`
+	Relation  *Relation `yaml:"$relation,omitempty"`
+}
+
+type Relation struct {
+	Fields     []string `yaml:"fields,omitempty"`
+	References []string `yaml:"references,omitempty"`
 }
 
 func LoadSchema(path string) (*Schema, error) {
