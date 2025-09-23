@@ -6,7 +6,6 @@ package cmd
 import (
 	"crystal-cli/console"
 	"crystal-cli/schema"
-	"crystal-cli/wd"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -16,23 +15,24 @@ import (
 var generateCmd = &cobra.Command{
 	Use:     "generate",
 	Aliases: []string{"gen"},
-	Short:   "A brief description of your command",
+	Short:   "Generate Crystal artifacts",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: runGenerate,
+	PreRunE: runValidate,
+	Run:     runGenerate,
 }
 
 func runGenerate(cmd *cobra.Command, args []string) {
-	if err := wd.RequireSchemaFile(); err != nil {
-		console.PrintErrorAndExit(err.Error())
-	}
+	// if err := wd.RequireSchemaFile(); err != nil {
+	// 	console.PrintErrorAndExit(err.Error())
+	// }
 	s, err := schema.LoadSchema("./crystal/schema.yaml")
 	if err != nil {
-		console.PrintErrorAndExit(err.Error())
+		console.PrintErrorAndExit(err, 1)
 	}
 
 	fmt.Print(s.Models["User"].Fields["id"].Type)

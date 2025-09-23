@@ -1,22 +1,22 @@
 package console
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/fatih/color"
 )
 
 var (
-	errorLabelPrinter = color.New(color.FgBlue, color.BgRed).PrintFunc()
-	errorTextPrinter  = color.New(color.FgHiRed).PrintfFunc()
+	ErrorLabelPrinter = color.New(color.FgBlue, color.BgRed, color.Bold)
+	errorTextPrinter  = color.New(color.FgHiRed)
 )
 
-func PrintError(err interface{}) {
-	errorLabelPrinter(" ERROR ")
-	errorTextPrinter(" %s\n", err)
+func PrintError(err error) {
+	fmt.Printf("%s %s\n", ErrorLabelPrinter.Sprint(" ERROR "), errorTextPrinter.Sprint(err.Error()))
 }
 
-func PrintErrorAndExit(err interface{}) {
+func PrintErrorAndExit(err error, code int) {
 	PrintError(err)
-	os.Exit(1)
+	os.Exit(code)
 }

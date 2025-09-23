@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/fatih/color"
 )
 
 type YesNo bool
@@ -22,7 +24,8 @@ func YesOrNo(prompt string, defaultOption YesNo) YesNo {
 		s = "Y/n"
 	}
 	for {
-		fmt.Printf("%s [%s]: ", prompt, s)
+		// fmt.Fprintf("%s [%s]: ", prompt, s)
+		fmt.Printf("%s [%s]: ", color.New(color.Bold).Sprint(prompt), s)
 
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)

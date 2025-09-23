@@ -5,12 +5,33 @@ import (
 	"path/filepath"
 )
 
-func CreateFolder(name string) {}
+func CreateFolder(name string) error {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+	path := filepath.Join(cwd, name)
+	return os.MkdirAll(path, 0o755) // 755 safe permission
+}
 
-func CreateFile(name, ext string) {}
+// create an empty file, overwrites if already exist, use with cautions
+func CreateFile(name string) error {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+	path := filepath.Join(cwd, name)
+	_, err = os.Create(path)
+	return err
+}
 
-func CreateFileWithContent(name, ext string, content []byte) {
-
+func CreateFileWithContent(name, content string) error {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+	path := filepath.Join(cwd, name)
+	return os.WriteFile(path, []byte(content), 0o644) // 644 for files
 }
 
 func FileExists(path string) bool {
