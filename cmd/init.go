@@ -18,14 +18,14 @@ var (
 var initCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Initialize Crystal",
-	Long:  `Setup Crystal ORM for your Go project`,
+	Long:  `Setup Crystal ORM for your project`,
 	RunE:  runInit,
 }
 
 func runInit(cmd *cobra.Command, args []string) error {
 	if !force && wd.ExistCrystal() {
 		return errors.New("your Crystal Schema already exists, you can use `--force` to force re-init (not safe)")
-	} else if force && bool(!input.YesOrNo(fmt.Sprintf("Re-init Crystal? %s", color.YellowString("(WARNING: All data will be destroy!)")), input.No)) {
+	} else if force && input.YesOrNo(fmt.Sprintf("Re-init Crystal? %s", color.YellowString("(WARNING: All data will be destroy!)")), input.No) == input.No {
 		return errors.New("operation cancelled")
 	}
 
