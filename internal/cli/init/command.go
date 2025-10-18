@@ -7,11 +7,11 @@ func NewCommand() *cobra.Command {
 		Use:   "init",
 		Short: "",
 		Long:  "",
-		RunE:  runInit,
+		RunE:  run,
 	}
 	return cmd
 }
 
-func runInit(cmd *cobra.Command, args []string) error {
+func run(cmd *cobra.Command, args []string) error {
 	return nil
 }

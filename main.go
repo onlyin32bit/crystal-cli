@@ -1,6 +1,5 @@
 /*
-Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
+Copyright © 2025 NGO BAO KHANG kngo3687@gmail.com
 */
 package main
 

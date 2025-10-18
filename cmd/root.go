@@ -1,7 +1,10 @@
 package cmd
 
 import (
-	"crystal-cli/console"
+	cliInit "crystal-cli/internal/cli/init"
+	cliSync "crystal-cli/internal/cli/sync"
+	"crystal-cli/internal/tools/console"
+	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -22,11 +25,14 @@ to quickly create a Cobra application.
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		console.PrintErrorAndExit(err, 1)
+		console.Error(err.Error())
+		os.Exit(1)
 	}
 }
 
 func init() {
 	rootCmd.SilenceErrors = true
 	rootCmd.SilenceUsage = true
+	rootCmd.AddCommand(cliInit.NewCommand())
+	rootCmd.AddCommand(cliSync.NewCommand())
 }

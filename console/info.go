@@ -1,3 +1,0 @@
-package console
-
-func Info() {}

@@ -1,6 +1,4 @@
-package wd
-
-import "crystal-cli/utils"
+package workdir
 
 const initContent string = `# Crystal ORM Schema
 # This file defines your database models, enums, and settings.` +
@@ -11,7 +9,7 @@ provider: postgres # Database provider (postgres, mysql, sqlite)
 source: env.DATABASE_URL # The connection string, or path to the .db file (sqlite)
 
 enums:
- Role: [ADMIN, USER]
+  Role: [ADMIN, USER]
 
 models:
   baseModel: &baseModel
@@ -35,7 +33,7 @@ models:
       $unique: true
     passwordHash:
       $type: string
-    role:
+    role: 
       $type: Role
       $default: USER
 
@@ -57,11 +55,11 @@ models:
 `
 
 func InitCrystal() error {
-	if err := utils.CreateFolder("crystal"); err != nil {
-		return err
-	}
-	if err := utils.CreateFileWithContent("crystal/schema.yaml", initContent); err != nil {
-		return err
-	}
+	// if err := utils.CreateFolder("crystal"); err != nil {
+	// 	return err
+	// }
+	// if err := utils.CreateFileWithContent("crystal/schema.yaml", initContent); err != nil {
+	// 	return err
+	// }
 	return nil
 }
